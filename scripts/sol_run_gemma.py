@@ -21,6 +21,9 @@ def main():
         "--limit-mm-per-prompt", "image=4"
     ]
     
+    if "mistral" in args.model.lower() or "pixtral" in args.model.lower():
+        cmd.extend(["--tokenizer-mode", "mistral"])
+    
     print(f"Starting vLLM server with command: {' '.join(cmd)}")
     try:
         subprocess.run(cmd, check=True)

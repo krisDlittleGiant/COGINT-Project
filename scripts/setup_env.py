@@ -80,6 +80,10 @@ def setup_environment():
     print("\nInstalling Python dependencies...")
     run_command(f"{pip_executable} install -r requirements.txt", cwd=target_dir)
 
+    if not is_windows:
+        print("\nInstalling SOL inference dependencies (vLLM)...")
+        run_command(f"{pip_executable} install vllm")
+
     # 5. Output Next Steps
     print("\n" + "="*50)
     print("INITIALIZATION COMPLETE!")

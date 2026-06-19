@@ -25,7 +25,10 @@ def main():
         "--tensor-parallel-size", str(args.tp),
         "--trust-remote-code",
         "--limit-mm-per-prompt", "image=4",
-        "--max-model-len", "32768"
+        "--max-model-len", "32768",
+        "--gpu-memory-utilization", "0.30",
+        "--quantization", "bitsandbytes",
+        "--load-format", "bitsandbytes"
     ]
     
     if "mistral" in args.model.lower() or "pixtral" in args.model.lower():

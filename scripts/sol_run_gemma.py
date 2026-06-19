@@ -13,7 +13,8 @@ def main():
 
     # Redirect HuggingFace cache to avoid filling up the small home directory quota on SOL
     if "HF_HOME" not in os.environ:
-        os.environ["HF_HOME"] = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".hf_cache"))
+        user = os.environ.get("USER", "default_user")
+        os.environ["HF_HOME"] = f"/scratch/{user}/hf_cache"
 
     cmd = [
         sys.executable, "-m", "vllm.entrypoints.openai.api_server",

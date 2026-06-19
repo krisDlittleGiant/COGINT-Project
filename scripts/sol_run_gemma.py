@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 import argparse
@@ -9,6 +10,10 @@ def main():
     parser.add_argument("--host", type=str, default="0.0.0.0", help="Host interface to bind to")
     parser.add_argument("--tp", type=int, default=1, help="Tensor parallel size (number of GPUs to use)")
     args = parser.parse_args()
+
+    # Redirect HuggingFace cache to avoid filling up the small home directory quota on SOL
+    if "HF_HOME" not in os.environ:
+        os.environ["HF_HOME"] = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".hf_cache"))
 
     cmd = [
         sys.executable, "-m", "vllm.entrypoints.openai.api_server",

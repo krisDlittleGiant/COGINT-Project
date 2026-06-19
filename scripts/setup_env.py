@@ -62,6 +62,9 @@ def setup_environment():
     if os.path.exists(submodule_path):
         print("\nFound OSWorld submodule.")
         target_dir = submodule_path
+        if not os.path.exists(os.path.join(submodule_path, "requirements.txt")):
+            print("Submodule appears empty. Initializing git submodules...")
+            run_command("git submodule update --init --recursive")
     else:
         if not os.path.exists(standalone_path):
             print("\nCloning OSWorld repository...")

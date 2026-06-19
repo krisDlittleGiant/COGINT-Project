@@ -16,6 +16,8 @@ def main():
         user = os.environ.get("USER", "default_user")
         os.environ["HF_HOME"] = f"/scratch/{user}/hf_cache"
 
+
+
     cmd = [
         sys.executable, "-m", "vllm.entrypoints.openai.api_server",
         "--model", args.model,
@@ -25,10 +27,8 @@ def main():
         "--tensor-parallel-size", str(args.tp),
         "--trust-remote-code",
         "--limit-mm-per-prompt", "image=4",
-        "--max-model-len", "32768",
-        "--gpu-memory-utilization", "0.30",
-        "--quantization", "bitsandbytes",
-        "--load-format", "bitsandbytes"
+        "--gpu-memory-utilization", "0.90", # You have the whole 80GB GPU now!
+        "--max-model-len", "32768"          # Lots of context room for OSWorld screenshots
     ]
     
     if "mistral" in args.model.lower() or "pixtral" in args.model.lower():

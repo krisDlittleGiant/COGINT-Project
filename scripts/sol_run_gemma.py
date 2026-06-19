@@ -16,7 +16,9 @@ def main():
         "--host", args.host,
         "--port", str(args.port),
         "--dtype", "auto",
-        "--tensor-parallel-size", str(args.tp)
+        "--tensor-parallel-size", str(args.tp),
+        "--trust-remote-code",
+        "--limit-mm-per-prompt", "image=4"
     ]
     
     print(f"Starting vLLM server with command: {' '.join(cmd)}")

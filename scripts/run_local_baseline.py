@@ -6,10 +6,12 @@ def main():
     parser = argparse.ArgumentParser(description="Run Local OSWorld Baseline")
     parser.add_argument("--max-steps", type=int, default=30, help="Maximum step count for the baseline")
     parser.add_argument("--model", type=str, default="gemma-12b", help="Model identifier to use")
+    parser.add_argument("--observation-type", type=str, default="screenshot", choices=["screenshot", "a11y_tree", "screenshot_a11y_tree", "som"], help="Observation type for the environment")
     args = parser.parse_args()
 
     max_steps = args.max_steps
     model = args.model
+    obs_type = args.observation_type
 
     # Target the OSWorld run.py directly
     osworld_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "benchmarks", "OSWorld"))
@@ -19,7 +21,8 @@ def main():
         "python", run_script,
         "--max_steps", str(max_steps),
         "--model", model,
-        "--provider_name", "docker"
+        "--provider_name", "docker",
+        "--observation_type", obs_type
     ]
 
     print(f"Running OSWorld Baseline with max_steps={max_steps} and model={model}...")

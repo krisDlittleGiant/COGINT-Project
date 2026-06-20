@@ -20,7 +20,8 @@ def main():
         "transformers>=4.45.0",
         "mistral_common>=1.4.4",
         "accelerate",
-        "xformers"
+        "xformers",
+        "pyairports"
     ]
     
     run_command(f"{pip_cmd} install --upgrade {' '.join(packages)}")

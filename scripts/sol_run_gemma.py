@@ -36,7 +36,11 @@ def main():
     
     print(f"Starting vLLM server with command: {' '.join(cmd)}")
     try:
-        subprocess.run(cmd, check=True)
+        # Strip out LD_LIBRARY_PATH so the supercomputer's outdated system NCCL
+        # doesn't override the correct pip-installed version and crash PyTorch!
+        env = os.environ.copy()
+        env.pop("LD_LIBRARY_PATH", None)
+        subprocess.run(cmd, check=True, env=env)
     except subprocess.CalledProcessError as e:
         print(f"Server exited with error: {e}")
         sys.exit(1)

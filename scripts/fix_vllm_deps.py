@@ -16,13 +16,15 @@ def main():
     
     # Pixtral requires recent versions of transformers, vLLM, and mistral_common to properly parse the images.
     packages = [
-        "vllm>=0.6.4",
+        "vllm==0.6.4.post1",
         "transformers>=4.45.0",
         "mistral_common>=1.4.4",
         "accelerate",
-        "xformers",
         "pyairports"
     ]
+    
+    # First forcefully wipe the conflicting packages
+    run_command(f"{pip_cmd} uninstall -y torch xformers vllm nvidia-nccl-cu12")
     
     run_command(f"{pip_cmd} install --upgrade {' '.join(packages)}")
     
